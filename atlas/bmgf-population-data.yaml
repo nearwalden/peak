@@ -1,0 +1,8 @@
+# The UN population estimate
+type: data
+name: "Gates Foundation Population Estimate"
+shortname: bmgf_population_estimate
+dataset: bmgf_global_burden_disease
+path: "peak/population/IHME_POP_2017_2100_POP_BOTH_SEX_ALL_AGE_Y2020M05D01.csv"
+format: csv
+	

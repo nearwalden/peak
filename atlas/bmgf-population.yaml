@@ -1,0 +1,8 @@
+# The UN population estimate
+type: dataset
+name: "Gates Foundation Global Burden of Disease"
+shortname: bmgf_global_burden_disease
+date: data
+source: url
+
+
