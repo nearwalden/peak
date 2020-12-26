@@ -1,7 +1,7 @@
 # description of the peak project for atlas
-name: test
-description: "A study of peak everything."
+name: Peak
+description: "A study of peak everything starting with population."
 owner:
     name: dd
     email: 'nearwalden@gmail.com'
-# git: add later
+github: "https://github.com/nearwalden/peak"

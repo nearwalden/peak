@@ -1,8 +1,9 @@
 # The UN population estimate
 type: dataset
-name: "Gates Foundation Global Burden of Disease"
-shortname: bmgf_global_burden_disease
-date: data
-source: url
+name: "Gates Foundation Global Burden of Disease - 2019"
+shortname: bmgf_global_burden_disease_2019
+date: 2019
+website: "http://www.healthdata.org/gbd/2019"
+dataurl: "http://ghdx.healthdata.org/record/ihme-data/global-population-forecasts-2017-2100"
 
 
