@@ -1,7 +1,7 @@
 # The UN population estimate
-type: dataset
-name: "UN Population Estimate"
+type: data
 shortname: un_population_estimate
+description: "UN Population Estimate"
 date: data
 source: url
 
