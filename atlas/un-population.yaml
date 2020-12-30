@@ -1,8 +1,11 @@
 # The UN population estimate
-type: data
+type: dataset
 shortname: un_population_estimate
 description: "UN Population Estimate"
-date: data
+datastore: 
+  - population_forecasts
+projects: 
+  - peak
 source: url
 
 

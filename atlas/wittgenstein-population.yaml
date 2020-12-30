@@ -1,10 +1,15 @@
 # Wittgenstein Centre population estimate
 
 type: dataset
-name: "Gates Foundation Global Burden of Disease - 2019"
-shortname: bmgf_global_burden_disease_2019
+description: "Wittgenstein Centre Population Data"
+name: wittgenstein-pupulation
 date: 2019
 website: "https://iiasa.ac.at/web/home/research/researchPrograms/WorldPopulation/The-Wittgenstein-Centre.en.html"
 dataurl: "https://dare.iiasa.ac.at/105/"
-localpath: 
+datastore: 
+  - population_forecasts
+projects: 
+  - peak
+
+ 
 

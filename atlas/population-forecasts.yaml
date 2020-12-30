@@ -1,7 +1,5 @@
 # The UN population estimate
 type: datastore
-projects: 
-  - peak
 description: "Population Forecasts"
 name: population_forecasts
 storage: "/Volumes/data/peak/poplation/"
