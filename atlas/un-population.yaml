@@ -1,11 +1,10 @@
 # The UN population estimate
 type: dataset
-shortname: un_population_estimate
-description: "UN Population Estimate"
-datastore: 
+name: un_population_estimate_2019
+description: "UN Population Estimate - 2019"
+datastores: 
   - population_forecasts
 projects: 
   - peak
-source: url
-
-
+path: "bmgf_population_2019/"
+website: 

@@ -2,6 +2,6 @@
 type: datastore
 description: "Population Forecasts"
 name: population_forecasts
-storage: "/Volumes/data/peak/poplation/"
+storage: "/Volumes/data/peak/population/"
 
 
