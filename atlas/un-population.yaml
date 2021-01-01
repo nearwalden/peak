@@ -6,5 +6,5 @@ datastores:
   - population_forecasts
 projects: 
   - peak
-path: "bmgf_population_2019/"
+path: "un-wpp2019/"
 website: 

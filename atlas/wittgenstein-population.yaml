@@ -2,14 +2,13 @@
 
 type: dataset
 description: "Wittgenstein Centre Population Data"
-name: wittgenstein-pupulation
-date: 2019
+name: wittgenstein-population
 website: "https://iiasa.ac.at/web/home/research/researchPrograms/WorldPopulation/The-Wittgenstein-Centre.en.html"
-dataurl: "https://dare.iiasa.ac.at/105/"
-datastore: 
+datastores: 
   - population_forecasts
 projects: 
   - peak
+path: "wittgenstein-centre/"
 
  
 
