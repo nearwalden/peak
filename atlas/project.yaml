@@ -1,4 +1,5 @@
 # description of the peak project for atlas
+type: project
 name: peak
 description: "A study of peak everything starting with population."
 owner:
