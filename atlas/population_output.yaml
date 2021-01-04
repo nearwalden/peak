@@ -1,0 +1,11 @@
+# The Gates Foundation population estimate 2019
+type: dataset
+datastores: 
+  - population_forecasts
+projects: 
+  - peak
+description: "Computed output from population files"
+name: population_output
+path: "population-output/"
+
+
