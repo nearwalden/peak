@@ -17,6 +17,15 @@ def witt_locations ():
 @flow
 def un_locations ():
 	
+	
+@flow
+def report_bmgf (bmgf, un):
+	
+	
+@flow
+def report_witt (witt, un):
+	
+	
 
 
 
