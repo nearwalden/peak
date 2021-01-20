@@ -1,0 +1,6 @@
+type: data
+dataset: un_population_high_variant
+name: un_high_variant
+description: "UN 2019 high variant"
+path: "WPP2019_POP_F01_1_TOTAL_POPULATION_BOTH_SEXES_high.csv"
+format: csv

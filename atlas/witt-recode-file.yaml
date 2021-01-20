@@ -1,0 +1,6 @@
+type: data
+dataset: wittgenstein-population
+name: recode_file
+description: "codes for witt datasets"
+path: "recode\ file.csv"
+format: csv
