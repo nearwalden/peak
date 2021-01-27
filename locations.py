@@ -5,6 +5,10 @@
 import pandas as p
 import files
 
+WORLD_NAMES = {'bmgf': 'Global',
+				'un': 'WORLD',
+				'witt': 'WORLD'}
+
 
 def bmgf_location_names ():
 	df = p.read_csv (files.get_path ('bmgf_population', 'pop_data'))
@@ -23,7 +27,7 @@ def un_locations ():
 	outdf = p.DataFrame()
 	outdf = dfg.first()
 	outdf = outdf.reset_index()
-	return outdf[outdf['Type'] == 'Country/Area'].copy()
+	return outdf #  outdf[outdf['Type'] == 'Country/Area'].copy()
 	
 
 def compare_names (names, dataset, un):
@@ -44,13 +48,23 @@ def compare_names (names, dataset, un):
 		'both': both
 	}
 	return out
+
+def compare_all_names (b, w, u):
+	bu = compare_names (b, 'bmgf', u)
+	wu = compare_names (w['name'].to_list(), 'witt', u)
+	print ("BU = " + str(len(bu['both'])) + ", WU = " + str(len(wu['both'])))
+	all_len = 0
+	for item in bu['both']:
+		if item in wu['both']:
+			all_len += 1
+	print ("All = " + str(all_len))
 	
 def compare_numbers (witt, un):
 	not1 = []
 	only1 = []
 	both = []
 	un_list = un['Country code'].to_list()
-	witt_list = wiit['code'].to_list()
+	witt_list = witt['code'].to_list()
 	for item in witt_list:
 		if item in un_list:
 			both.append (item)
@@ -59,8 +73,10 @@ def compare_numbers (witt, un):
 	for item in un['Country code']:
 		if item not in witt['code']:
 			not1.append(item)
-	out = {dataset: only1,
+	out = {'witt': only1,
 		'un': not1,
 		'both': both
 	}
 	return out
+
+

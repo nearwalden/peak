@@ -8,7 +8,14 @@ BMFG = {'path': 'gatesfoundation/',
         'basepath': DATA_BASEPATH,
         'data': 
             {'files': 
-                {'pop_data': 'IHME_POP_2017_2100_POP_BOTH_SEX_ALL_AGE_Y2020M05D01.csv'}
+                {'pop_data': 'IHME_POP_2017_2100_POP_BOTH_SEX_ALL_AGE_Y2020M05D01.csv
+                },
+            'collections':
+                {'global_pop': {
+                    'basepath': 'IHME_POP_2017_2100_GLOBAL_{}.csv',
+                    'vals': ['SLOWER', 'REFERENCE', 'FASTER', 'SDB']
+                    }
+                }
             }
 }
 
@@ -25,8 +32,15 @@ WITT = {'path': 'wittgenstein-center/',
 UN = {'path': 'un-wpp2019/',
     'basepath': DATA_BASEPATH,
     'data': 
-        {'files': 
-            {'high_variant': 'WPP2019_POP_F01_1_TOTAL_POPULATION_BOTH_SEXES_high.csv'}
+        {'collections': 
+            {'all_pop': {
+                    'basepath': 'WPP2019_POP_F01_1_TOTAL_POPULATION_BOTH_SEXES_{}.csv',
+                    'vals': ['high', 'medium', 'low']},
+            
+            'global_pop': {
+                    'basepath': 'WPP2019_POP_GLOBAL_{}.csv',
+                    'vals': ['high', 'medium', 'low']}
+            }                  
         }
 }
 
@@ -40,8 +54,19 @@ DATASETS = {'bmgf_population': BMFG,
             'results': RES}
 
 
-def get_path (dataset, file):
-    dataset = DATASETS[dataset]
-    datasetpath = dataset['basepath'] + dataset['path']
-    filepath = dataset['data']['files'][file]
+def get_file_path (dataset, name):
+    ds = DATASETS[dataset]
+    datasetpath = ds['basepath'] + ds['path']
+    filepath = ds['data']['files'][name]
     return datasetpath + filepath
+
+def get_coll_path (dataset, coll, vals):
+    ds = DATASETS[dataset]
+    datasetpath = ds['basepath'] + ds['path']
+    base_filepath = ds['data']['collections'][coll]['basepath']
+    filepath = base_filepath.format(vals)
+    return datasetpath + filepath
+
+def get_coll_vals (dataset, coll, vals):
+    ds = DATASETS[dataset]
+    return ds['data']['collections'][coll]['vals']
