@@ -88,17 +88,17 @@ def witt_global():
         # get global
         orig = orig.drop(age_drops, 1)
         world = orig[(orig.eduno == 0) & (orig.sexno == 0) & (orig.isono == 900)]
-        fit = np.polyfit(world.year, world.ageno_1, 2)
+        fit = np.polyfit(world.year, world.ageno_0, 2)
         out = []
         for year in range(2020, 2101):
-            pop = fit[0] * np.square(year) + fit[1] * year + fit[2]
+            pop = (fit[0] * np.square(year) + fit[1] * year + fit[2]) * 1000
             out.append({
                 'year': year,
                 'scenario': scenario,
-                'population' pop})
-        outddf = p.DataFrame(out)
+                'population': pop})
+        outdf = p.DataFrame(out)
         outdf.to_csv(out_path)
-        print("Wrote " + str(len(out)) + " records for " + scenario)
+        print("Wrote " + str(len(out)) + " records for " +str(scenario))
     return True
 
 

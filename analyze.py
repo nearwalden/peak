@@ -4,7 +4,7 @@ import files
 import pandas as p
 
 
-def merge_bmgf_un():
+def merge_all():
     out = p.DataFrame()
     bmgf_ds = 'bmgf_population'
     bmgf_coll = 'global_pop'
@@ -18,15 +18,22 @@ def merge_bmgf_un():
         df = p.read_csv(files.get_coll_file_path(un_ds, un_coll, val))
         df = df.set_index('year')
         out['UN-' + val] = df['population']
+    witt_ds = 'witt_population'
+    witt_coll = 'global_pop'
+    for val in files.get_coll_vals(witt_ds, witt_coll):
+        df = p.read_csv(files.get_coll_file_path(witt_ds, witt_coll, val))
+        df = df.set_index('year')
+        out['Witt-' + str(val)] = df['population']
     return out
 
 
 # compare
-def compare_bmgf_un(start=2020, end=2100):
-    df = merge_bmgf_un()
+def compare_all(start=2020, end=2100):
+    df = merge_all()
     df = df[(df.index >= start) & (df.index <= end)]
     out = p.DataFrame()
     out['peak'] = df.max()
     out['peak_year'] = df.idxmax()
     out['manyears'] = df.sum()/1000000000
+    out['mean'] = df.mean()
     return out

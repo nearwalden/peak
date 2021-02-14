@@ -24,9 +24,8 @@ WITT = {'path': 'wittgenstein-center/',
         'basepath': DATA_BASEPATH,
         'data': 
             {'files': 
-                {'recode': 'recode file.csv'}
-            },
-            {'collections':
+                {'recode': 'recode file.csv'},
+            'collections':
                 {'all_pop': {
                     'basepath': 'ssp{}epop_wide.csv',
                     'vals': range(1, 6)
@@ -34,9 +33,10 @@ WITT = {'path': 'wittgenstein-center/',
                 'global_pop': {
                     'basepath': 'ssp{}epop_global.csv',
                     'vals': range(1, 6)
-                    }    
-                }}
-}
+                    }}
+            }
+        }
+
 
 # UN data 2019
 UN = {'path': 'un-wpp2019/',
