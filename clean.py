@@ -1,6 +1,7 @@
 # Make clean files
 
 import files
+import locations
 import pandas as p
 import numpy as np
 
@@ -20,7 +21,8 @@ BMGF_SCENARIOS = {
 BMGF_MAP = {
     'scenario': 'scenario_id',
     'year_id': 'year',
-    'val': 'population'
+    'val': 'population',
+    'location_name': 'location_name'
 }
 
 
@@ -35,13 +37,37 @@ def bmgf_global():
     norm = mapdf(origg, BMGF_MAP)
     # do scenarios in order
     for scenario in BMGF_SCENARIOS.keys():
-        out_path = files.get_coll_path(ds, 'global_pop', scenario)
+        out_path = files.get_coll_file_path(ds, 'global_pop', scenario)
         # pick out scenario
         norms = norm[norm['scenario_id'] == BMGF_SCENARIOS[scenario]].copy()
         norms['scenario'] = scenario
         norms['population'] = norms['population'].astype(int)
         norms.to_csv(out_path)
         print("Wrote " + str(len(norms)) + " records for " + scenario)
+    return True
+
+
+def bmgf_countries():
+    ds = 'bmgf_population'
+    countries = locations.countries()
+    orig = p.read_csv(files.get_file_path(ds, 'pop_data'))
+    # start with 2020
+    orig = orig[orig.year_id > 2019]
+    # get right columns
+    norm = mapdf(orig, BMGF_MAP)
+    # do scenarios in order
+    for scenario in BMGF_SCENARIOS.keys():
+        out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
+        # pick out scenario
+        norms = norm[norm['scenario_id'] == BMGF_SCENARIOS[scenario]].copy()
+        norms = norms.set_index('year')
+        outdf = p.DataFrame()
+        for country in countries:
+            normc = norms[norms['location_name'] == country]
+            outdf[country] = normc['population'].astype(int)
+        outdf = outdf.reset_index()
+        outdf.to_csv(out_path)
+        print("Wrote " + str(len(outdf)) + " records for " + scenario)
     return True
 
 
@@ -66,6 +92,32 @@ def un_global():
         out = p.DataFrame()
         out['population'] = new[0].map(lambda x: int(x.replace(' ','')) * 1000)
         out['year'] = new['index']
+        out['scenario'] = scenario
+        out.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " + scenario)
+    return True
+
+
+def un_countries():
+    ds = 'un_population'
+    countries = locations.countries()    
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
+        # get global
+        orig = orig.drop(UN_DROPS, 1)
+        out = p.DataFrame()
+        first_country = True
+        for country in countries:
+            countrydf = orig[orig.Region == country]
+            new = countrydf.drop('Region', 1).T
+            country_code = new.columns[0]
+            new = new.reset_index()
+            out[country] = new[country_code].map(lambda x: int(x.replace(' ','')) * 1000)
+            if first_country:
+                out['year'] = new['index']
+            first_country = False
         out['scenario'] = scenario
         out.to_csv(out_path)
         print("Wrote " + str(len(out)) + " records for " + scenario)
@@ -96,6 +148,34 @@ def witt_global():
                 'year': year,
                 'scenario': scenario,
                 'population': pop})
+        outdf = p.DataFrame(out)
+        outdf.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " +str(scenario))
+    return True
+
+
+def witt_country():
+    ds = 'witt_population'
+    countries = locations.countries()
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    age_drops = []
+    for i in range(1, 22):
+        age_drops.append('ageno_' + str(i))
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
+        # get global
+        orig = orig.drop(age_drops, 1)
+        for country in countries:
+            country_pop = orig[(orig.eduno == 0) & (orig.sexno == 0) & (orig.isono == 900)]
+            fit = np.polyfit(country_pop.year, country_pop.ageno_0, 2)
+            out = []
+            for year in range(2020, 2101):
+                pop = (fit[0] * np.square(year) + fit[1] * year + fit[2]) * 1000
+                out.append({
+                    'year': year,
+                    'scenario': scenario,
+                    'population': pop})
         outdf = p.DataFrame(out)
         outdf.to_csv(out_path)
         print("Wrote " + str(len(out)) + " records for " +str(scenario))

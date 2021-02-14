@@ -14,6 +14,10 @@ BMGF = {'path': 'gatesfoundation/',
                 {'global_pop': {
                     'basepath': 'IHME_POP_2017_2100_GLOBAL_{}.csv',
                     'vals': ['SLOWER', 'REFERENCE', 'FASTER', 'SDG']
+                    },
+                'country_pop': {
+                    'basepath': 'IHME_POP_2017_2100_COUNTRY_{}.csv',
+                    'vals': ['SLOWER', 'REFERENCE', 'FASTER', 'SDG']
                     }
                 }
             }
@@ -33,7 +37,12 @@ WITT = {'path': 'wittgenstein-center/',
                 'global_pop': {
                     'basepath': 'ssp{}epop_global.csv',
                     'vals': range(1, 6)
-                    }}
+                    },
+                'country_pop': {
+                    'basepath': 'ssp{}epop_country.csv',
+                    'vals': range(1, 6)
+                    }
+                }
             }
         }
 
@@ -48,6 +57,9 @@ UN = {'path': 'un-wpp2019/',
                     'vals': ['high', 'medium', 'low']},        
             'global_pop': {
                     'basepath': 'WPP2019_POP_GLOBAL_{}.csv',
+                    'vals': ['high', 'medium', 'low']},
+            'country_pop': {
+                    'basepath': 'WPP2019_POP_COUNTRY_{}.csv',
                     'vals': ['high', 'medium', 'low']}
             }                  
         }

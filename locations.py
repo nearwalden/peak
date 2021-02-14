@@ -13,23 +13,38 @@ WORLD_NAMES = {
 
 
 def bmgf_location_names():
-    df = p.read_csv(files.get_path('bmgf_population', 'pop_data'))
+    df = p.read_csv(files.get_file_path('bmgf_population', 'pop_data'))
     return df['location_name'].unique()
 
 
 def witt_locations():
-    df = p.read_csv(files.get_path('witt_population', 'recode'))
+    df = p.read_csv(files.get_file_path('witt_population', 'recode'))
     dfl = df[df['dim'] == 'isono'].copy()
     return dfl.drop('dim', axis=1)
 
 
 def un_locations():
-    df = p.read_csv(files.get_path('un_population', 'high_variant'))
+    df = p.read_csv(files.get_coll_file_path('un_population', 'all_pop', 'high'))
     dfg = df.groupby('Region')
     outdf = p.DataFrame()
     outdf = dfg.first()
     outdf = outdf.reset_index()
     return outdf   #  outdf[outdf['Type'] == 'Country/Area'].copy()
+
+
+def un_country_names():
+    df = un_locations()
+    return df[df.Type == 'Country/Area']['Region'].to_list()
+
+
+def un_region_names():
+    df = un_locations()
+    return df[df.Type == 'Region']['Region'].to_list()
+
+
+def un_subregion_names():
+    df = un_locations()
+    return df[df.Type == 'Subregion']['Region'].to_list()
 
 
 def compare_names(names, dataset, un):
@@ -83,4 +98,30 @@ def compare_numbers(witt, un):
     }
     return out
 
+
+# retunrs a list of common countries
+def countries():
+    uc = un_country_names()
+    b = bmgf_location_names()
+    w = witt_locations()['name'].to_list()
+    common = set(uc).intersection(set(b), set(w))
+    return list(common)
+
+
+# retunrs a list of common regions (none!)
+def regions():
+    uc = un_region_names()
+    b = bmgf_location_names()
+    w = witt_locations()['name'].to_list()
+    common = set(uc).intersection(set(b), set(w))
+    return list(common)
+
+
+# returns a list of common subregions (only a couple!)
+def subregions():
+    uc = un_subregion_names()
+    b = bmgf_location_names()
+    w = witt_locations()['name'].to_list()
+    common = set(uc).intersection(set(b), set(w))
+    return list(common)
 
