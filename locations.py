@@ -19,8 +19,15 @@ def bmgf_location_names():
 
 def witt_locations():
     df = p.read_csv(files.get_file_path('witt_population', 'recode'))
+    datadf = p.read_csv(files.get_coll_file_path('witt_population', "all_pop", 1))
     dfl = df[df['dim'] == 'isono'].copy()
-    return dfl.drop('dim', axis=1)
+    out = []
+    for i, row in dfl.iterrows():
+        count = len(datadf[datadf['isono'] == row['code']])
+        if count > 0:
+            out.append({'name': row['name'], 'code': row['code']})
+    outdf = p.DataFrame(out)
+    return outdf
 
 
 def un_locations():
@@ -104,8 +111,15 @@ def countries():
     uc = un_country_names()
     b = bmgf_location_names()
     w = witt_locations()['name'].to_list()
-    common = set(uc).intersection(set(b), set(w))
-    return list(common)
+    common = list(set(uc).intersection(set(b), set(w)))
+    return common
+
+
+# get UN isono from country name
+def country_code(country):
+    df = p.read_csv(files.get_file_path('witt_population', 'recode'))
+    df = df.set_index('name')
+    return df.loc[country]['code']
 
 
 # retunrs a list of common regions (none!)

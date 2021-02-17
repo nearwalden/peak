@@ -154,7 +154,7 @@ def witt_global():
     return True
 
 
-def witt_country():
+def witt_countries():
     ds = 'witt_population'
     countries = locations.countries()
     scenarios = files.get_coll_vals(ds, 'all_pop')
@@ -166,17 +166,18 @@ def witt_country():
         out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
         # get global
         orig = orig.drop(age_drops, 1)
+        outdf = p.DataFrame()
+        outdf['year'] = np.arange(2020, 2101, 1)
+        # print (outdf)
         for country in countries:
-            country_pop = orig[(orig.eduno == 0) & (orig.sexno == 0) & (orig.isono == 900)]
+            code = locations.country_code(country)
+            country_pop = orig[(orig.eduno == 0) & (orig.sexno == 0) & (orig.isono == code)]
             fit = np.polyfit(country_pop.year, country_pop.ageno_0, 2)
             out = []
             for year in range(2020, 2101):
                 pop = (fit[0] * np.square(year) + fit[1] * year + fit[2]) * 1000
-                out.append({
-                    'year': year,
-                    'scenario': scenario,
-                    'population': pop})
-        outdf = p.DataFrame(out)
+                out.append(pop)
+            outdf[country] = out
         outdf.to_csv(out_path)
         print("Wrote " + str(len(out)) + " records for " +str(scenario))
     return True
