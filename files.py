@@ -1,6 +1,7 @@
 # locations of everything
 
-DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
+# DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
+DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
 
 
 # Gates foundation population data
@@ -48,7 +49,7 @@ WITT = {'path': 'wittgenstein-center/',
 
 
 # UN data 2019
-UN = {'path': 'un-wpp2019/',
+UN2019 = {'path': 'un-wpp2019/',
     'basepath': DATA_BASEPATH,
     'data': 
         {'collections': 
@@ -65,13 +66,33 @@ UN = {'path': 'un-wpp2019/',
         }
 }
 
+# UN data 2019
+UN2022 = {'path': 'un-wpp2022/',
+    'basepath': DATA_BASEPATH,
+    'data': 
+        {'collections': 
+            {'all_pop': {
+                    'basepath': 'WPP2022_GEN_F01_DEMOGRAPHIC_INDICATORS_REV1_POP_{}.csv',
+                    'vals': ['high', 'medium', 'low']},        
+            'global_pop': {
+                    'basepath': 'WPP2022_POP_GLOBAL_{}.csv',
+                    'vals': ['high', 'medium', 'low']},
+            'country_pop': {
+                    'basepath': 'WPP2022_POP_COUNTRY_{}.csv',
+                    'vals': ['high', 'medium', 'low']}
+            }                  
+        }
+}
+
+
 # place for results
 RES = {'path': 'results/'}
 
 
 DATASETS = {'bmgf_population': BMGF, 
             'witt_population': WITT, 
-            'un_population': UN,
+            'un_population_2019': UN2019,
+            'un_population_2022': UN2022,            
             'results': RES}
 
 

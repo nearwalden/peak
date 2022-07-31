@@ -7,7 +7,8 @@ import files
 
 WORLD_NAMES = {
     'bmgf': 'Global',
-    'un': 'WORLD',
+    'un2019': 'WORLD',
+    'un2022': 'WORLD',
     'witt': 'WORLD'
     }
 
@@ -30,8 +31,8 @@ def witt_locations():
     return outdf
 
 
-def un_locations():
-    df = p.read_csv(files.get_coll_file_path('un_population', 'all_pop', 'high'))
+def un2019_locations():
+    df = p.read_csv(files.get_coll_file_path('un_population_2019', 'all_pop', 'high'))
     dfg = df.groupby('Region')
     outdf = p.DataFrame()
     outdf = dfg.first()
@@ -39,28 +40,52 @@ def un_locations():
     return outdf   #  outdf[outdf['Type'] == 'Country/Area'].copy()
 
 
-def un_country_names():
-    df = un_locations()
+def un2019_country_names():
+    df = un2019_locations()
     return df[df.Type == 'Country/Area']['Region'].to_list()
 
 
-def un_region_names():
-    df = un_locations()
+def un2019_region_names():
+    df = un2019_locations()
     return df[df.Type == 'Region']['Region'].to_list()
 
 
-def un_subregion_names():
-    df = un_locations()
+def un2019_subregion_names():
+    df = un2019_locations()
     return df[df.Type == 'Subregion']['Region'].to_list()
 
 
-def compare_names(names, dataset, un):
+def un2022_locations():
+    df = p.read_csv(files.get_coll_file_path('un_population_2022', 'all_pop', 'high'))
+    dfg = df.groupby('Region')
+    outdf = p.DataFrame()
+    outdf = dfg.first()
+    outdf = outdf.reset_index()
+    return outdf   #  outdf[outdf['Type'] == 'Country/Area'].copy()
+    
+    
+def un2022_country_names():
+    df = un2019_locations()
+    return df[df.Type == 'Country/Area']['Region'].to_list()
+
+
+def un2022_region_names():
+    df = un2019_locations()
+    return df[df.Type == 'Region']['Region'].to_list()
+
+
+def un2022_subregion_names():
+    df = un2019_locations()
+    return df[df.Type == 'Subregion']['Region'].to_list()
+
+
+def compare_names(names, dataset, un2019):
     not1 = []
     only1 = []
     both = []
-    un_list = un['Region'].to_list()
+    un2019_list = un2019['Region'].to_list()
     for item in names:
-        if item in un_list:
+        if item in un2019_list:
             both.append(item)
         else:
             only1.append(item)
@@ -106,13 +131,22 @@ def compare_numbers(witt, un):
     return out
 
 
-# retunrs a list of common countries
+# returns a list of common countries
 def countries():
-    uc = un_country_names()
+    uc2019 = un2019_country_names()
+    uc2022 = un2022_country_names()
     b = bmgf_location_names()
     w = witt_locations()['name'].to_list()
-    common = list(set(uc).intersection(set(b), set(w)))
+    common = list(set(uc2019).intersection(set(uc2022), set(b), set(w)))
     return common
+    
+# returns a list of common countries
+def un_countries():
+    uc2019 = un2019_country_names()
+    uc2022 = un2022_country_names()
+    common = list(set(uc2019).intersection(set(uc2022)))
+    return common
+
 
 
 # get UN isono from country name
