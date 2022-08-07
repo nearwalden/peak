@@ -62,27 +62,25 @@ def un2022_locations():
     outdf = dfg.first()
     outdf = outdf.reset_index()
     return outdf   #  outdf[outdf['Type'] == 'Country/Area'].copy()
-    
-    
+
+
 def un2022_country_names():
-    df = un2019_locations()
+    df = un2022_locations()
     return df[df.Type == 'Country/Area']['Region'].to_list()
 
 
 def un2022_region_names():
-    df = un2019_locations()
+    df = un2022_locations()
     return df[df.Type == 'Region']['Region'].to_list()
 
 
 def un2022_subregion_names():
-    df = un2019_locations()
+    df = un2022_locations()
     return df[df.Type == 'Subregion']['Region'].to_list()
 
 
 def compare_names(names, dataset, un2019):
     not1 = []
-    only1 = []
-    both = []
     un2019_list = un2019['Region'].to_list()
     for item in names:
         if item in un2019_list:

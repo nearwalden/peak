@@ -1,7 +1,8 @@
 # locations of everything
 
 # DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
-DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
+# DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
+DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
 
 
 # Gates foundation population data

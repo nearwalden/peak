@@ -79,8 +79,8 @@ UN2019_DROPS = ['Variant', 'Notes', 'Country code', 'Type', 'Parent code']
 
 UN2022_DROPS = ['Variant', 'Notes', 'Location code', 'Type']
 
-# clean up the 2019 version
 
+# clean up the 2019 version
 def un2019_global():
     ds = 'un_population_2019'
     scenarios = files.get_coll_vals(ds, 'all_pop')
@@ -128,6 +128,7 @@ def un2019_countries():
 
 # clean up the 2022 version
 
+
 def un2022_global():
     ds = 'un_population_2022'
     scenarios = files.get_coll_vals(ds, 'all_pop')
@@ -144,7 +145,7 @@ def un2022_global():
         print("Wrote " + str(len(out)) + " records for " + scenario)
     return True
 
-    
+
 def un2022_countries():
     ds = 'un_population_2022'
     countries = locations.countries()    
@@ -155,7 +156,6 @@ def un2022_countries():
         out = p.DataFrame()
         first_country = True
         for country in countries:
-            print(country)
             countrydf = orig[orig.Region == country].copy()
             out[country] = countrydf['population'].map(lambda x: int(x.replace(' ','')) * 1000).values
             if first_country:
