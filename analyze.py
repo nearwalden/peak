@@ -13,12 +13,18 @@ def merge_all():
         df = p.read_csv(files.get_coll_file_path(bmgf_ds, bmgf_coll, val))
         df = df.set_index('year')
         out['BMGF-' + val] = df['population']
-    un_ds = 'un_population'
-    un_coll = 'global_pop'
-    for val in files.get_coll_vals(un_ds, un_coll):
-        df = p.read_csv(files.get_coll_file_path(un_ds, un_coll, val))
+    un2019_ds = 'un_population_2019'
+    un2019_coll = 'global_pop'
+    for val in files.get_coll_vals(un2019_ds, un2019_coll):
+        df = p.read_csv(files.get_coll_file_path(un2019_ds, un2019_coll, val))
         df = df.set_index('year')
-        out['UN-' + val] = df['population']
+        out['UN2019-' + val] = df['population']
+    un2022_ds = 'un_population_2022'
+    un2022_coll = 'global_pop'
+    for val in files.get_coll_vals(un2022_ds, un2022_coll):
+        df = p.read_csv(files.get_coll_file_path(un2022_ds, un2022_coll, val))
+        df = df.set_index('year')
+        out['UN2022-' + val] = df['population']
     witt_ds = 'witt_population'
     witt_coll = 'global_pop'
     for val in files.get_coll_vals(witt_ds, witt_coll):
@@ -49,12 +55,20 @@ def merge_all_country(country):
         df = p.read_csv(files.get_coll_file_path(bmgf_ds, bmgf_coll, val))
         df = df.set_index('year')
         out['BMGF-' + val] = df[country]
-    un_ds = 'un_population'
-    un_coll = 'country_pop'
-    for val in files.get_coll_vals(un_ds, un_coll):
-        df = p.read_csv(files.get_coll_file_path(un_ds, un_coll, val))
+    un2019_ds = 'un_population_2019'
+    un2019_coll = 'country_pop'
+    for val in files.get_coll_vals(un2019_ds, un2019_coll):
+        df = p.read_csv(files.get_coll_file_path(un2019_ds, un2019_coll, val))
         df = df.set_index('year')
-        out['UN-' + val] = df[country]
+        out['UN2019-' + val] = df[country]
+    un2022_ds = 'un_population_2022'
+    un2022_coll = 'country_pop'
+    for val in files.get_coll_vals(un2022_ds, un2022_coll):
+        df = p.read_csv(files.get_coll_file_path(un2022_ds, un2022_coll, val))
+        df = df.set_index('year')
+        print(df)
+        print(out)
+        out['UN2022-' + val] = df[country]
     witt_ds = 'witt_population'
     witt_coll = 'country_pop'
     for val in files.get_coll_vals(witt_ds, witt_coll):

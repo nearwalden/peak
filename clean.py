@@ -100,7 +100,6 @@ def un2019_global():
         print("Wrote " + str(len(out)) + " records for " + scenario)
     return True
 
-
 def un2019_countries():
     ds = 'un_population_2019'
     countries = locations.countries()    
@@ -109,18 +108,19 @@ def un2019_countries():
         orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
         out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
         # get global
-        orig = orig.drop(UN2019_DROPS, 1)
+        orig = orig.drop(UN2019_DROPS, axis=1)
         out = p.DataFrame()
         first_country = True
         for country in countries:
-            countrydf = orig[orig.Region == country]
-            new = countrydf.drop('Region', 1).T
+            countrydf = orig[orig.Region == country].copy()
+            new = countrydf.drop('Region', axis=1).T
             country_code = new.columns[0]
             new = new.reset_index()
             out[country] = new[country_code].map(lambda x: int(x.replace(' ','')) * 1000)
             if first_country:
                 out['year'] = new['index']
             first_country = False
+            out = out.copy()
         out['scenario'] = scenario
         out.to_csv(out_path)
         print("Wrote " + str(len(out)) + " records for " + scenario)
