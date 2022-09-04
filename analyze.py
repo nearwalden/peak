@@ -66,8 +66,6 @@ def merge_all_country(country):
     for val in files.get_coll_vals(un2022_ds, un2022_coll):
         df = p.read_csv(files.get_coll_file_path(un2022_ds, un2022_coll, val))
         df = df.set_index('year')
-        print(df)
-        print(out)
         out['UN2022-' + val] = df[country]
     witt_ds = 'witt_population'
     witt_coll = 'country_pop'

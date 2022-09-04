@@ -159,7 +159,7 @@ def un2022_countries():
             countrydf = orig[orig.Region == country].copy()
             out[country] = countrydf['population'].map(lambda x: int(x.replace(' ','')) * 1000).values
             if first_country:
-                out['year'] = countrydf['year']
+                out['year'] = orig['year']
             first_country = False
             out = out.copy()
         out['scenario'] = scenario
