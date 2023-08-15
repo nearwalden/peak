@@ -1,0 +1,171 @@
+{
+  "main": {
+    "id": "d48532d0a4231b52",
+    "type": "split",
+    "children": [
+      {
+        "id": "83bd466bd7364e08",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "471d70e60b56b6e1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Phase 3 Analysis.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b6500a7ee82fc4f2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Links.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3dc37f1db005cc7b",
+    "type": "split",
+    "children": [
+      {
+        "id": "8a734b931eac55e8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6dd45a130eee1065",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "51965d82a7c99b0d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "11176e57cb4b16cb",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c1c131f978fd4a1e",
+    "type": "split",
+    "children": [
+      {
+        "id": "2fd2efd24e4555d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f9aaf164208bc7ba",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Links.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a832eb79c4ee9a8e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Links.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "00bae2804bf42916",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "f8f75f42806ec030",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Links.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b6500a7ee82fc4f2",
+  "lastOpenFiles": [
+    "Phase 3 Analysis.md",
+    "Links.md",
+    "README.md",
+    "un/Wilmoth_APC_Nov2019_Presentation.pdf",
+    "un/Wilmoth_APC_Nov2019_Script.pdf",
+    "Untitled"
+  ]
+}
