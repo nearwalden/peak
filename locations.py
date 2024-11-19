@@ -5,6 +5,7 @@
 import pandas as p
 import files
 
+# names to use for the various datasets
 WORLD_NAMES = {
     'bmgf': 'Global',
     'un2019': 'WORLD',
@@ -12,12 +13,12 @@ WORLD_NAMES = {
     'witt': 'WORLD'
     }
 
-
+# locations for BMGF
 def bmgf_location_names():
     df = p.read_csv(files.get_file_path('bmgf_population', 'pop_data'))
     return df['location_name'].unique()
 
-
+# locations for WITT
 def witt_locations():
     df = p.read_csv(files.get_file_path('witt_population', 'recode'))
     datadf = p.read_csv(files.get_coll_file_path('witt_population', "all_pop", 1))
