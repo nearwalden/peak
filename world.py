@@ -26,7 +26,7 @@ class World:
 			df = p.read_csv(files.get_coll_file_path(un2022_ds, un2022_coll, val))
 			df = df.set_index('year')
 			self.data['UN2022-' + val] = df['population']
-		witt_ds = 'witt_population'
+		witt_ds = 'witt_population-2019'
 		witt_coll = 'global_pop'
 		for val in files.get_coll_vals(witt_ds, witt_coll):
 			df = p.read_csv(files.get_coll_file_path(witt_ds, witt_coll, val))

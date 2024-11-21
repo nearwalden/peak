@@ -10,7 +10,7 @@ WORLD_NAMES = {
     'bmgf': 'Global',
     'un2019': 'WORLD',
     'un2022': 'WORLD',
-    'witt': 'WORLD'
+    'witt2019': 'WORLD'
     }
 
 # locations for BMGF
@@ -19,8 +19,8 @@ def bmgf_location_names():
     return df['location_name'].unique()
 
 # locations for WITT
-def witt_locations():
-    df = p.read_csv(files.get_file_path('witt_population', 'recode'))
+def witt20219_locations():
+    df = p.read_csv(files.get_file_path('witt_population-2019', 'recode'))
     datadf = p.read_csv(files.get_coll_file_path('witt_population', "all_pop", 1))
     dfl = df[df['dim'] == 'isono'].copy()
     out = []
@@ -135,7 +135,7 @@ def countries():
     uc2019 = un2019_country_names()
     uc2022 = un2022_country_names()
     b = bmgf_location_names()
-    w = witt_locations()['name'].to_list()
+    w = witt2019_locations()['name'].to_list()
     common = list(set(uc2019).intersection(set(uc2022), set(b), set(w)))
     return common
     

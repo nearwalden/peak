@@ -25,8 +25,9 @@ BMGF = {'path': 'gatesfoundation/',
             }
 }
 
+
 # Wittgenstein Center population dataw
-WITT = {'path': 'wittgenstein-center/',
+WITT2019 = {'path': 'wittgenstein-center-2019/',
         'basepath': DATA_BASEPATH,
         'data': 
             {'files': 
@@ -48,6 +49,28 @@ WITT = {'path': 'wittgenstein-center/',
             }
         }
 
+# Wittgenstein Center population dataw
+WITT2023 = {'path': 'wittgenstein-center-2023/',
+        'basepath': DATA_BASEPATH,
+        'data': 
+            {'files': 
+                {'recode': 'recode file.csv'},
+            'collections':
+                {'all_pop': {
+                    'basepath': 'ssp{}epop_wide.csv',
+                    'vals': range(1, 6)
+                    },
+                'global_pop': {
+                    'basepath': 'ssp{}epop_global.csv',
+                    'vals': range(1, 6)
+                    },
+                'country_pop': {
+                    'basepath': 'ssp{}epop_country.csv',
+                    'vals': range(1, 6)
+                    }
+                }
+            }
+        }
 
 # UN data 2019
 UN2019 = {'path': 'un-wpp2019/',
@@ -67,7 +90,7 @@ UN2019 = {'path': 'un-wpp2019/',
         }
 }
 
-# UN data 2019
+# UN data 2022
 UN2022 = {'path': 'un-wpp2022/',
     'basepath': DATA_BASEPATH,
     'data': 
@@ -84,6 +107,26 @@ UN2022 = {'path': 'un-wpp2022/',
             }                  
         }
 }
+
+# UN data 2024, files not fixed
+UN2024 = {'path': 'un-wpp2024/',
+    'basepath': DATA_BASEPATH,
+    'data': 
+        {'collections': 
+            {'all_pop': {
+                    'basepath': 'WPP2022_GEN_F01_DEMOGRAPHIC_INDICATORS_REV1_POP_{}.csv',
+                    'vals': ['high', 'medium', 'low']},        
+            'global_pop': {
+                    'basepath': 'WPP2022_POP_GLOBAL_{}.csv',
+                    'vals': ['high', 'medium', 'low']},
+            'country_pop': {
+                    'basepath': 'WPP2022_POP_COUNTRY_{}.csv',
+                    'vals': ['high', 'medium', 'low']}
+            }                  
+        }
+}
+
+
 
 
 # place for results

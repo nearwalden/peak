@@ -173,7 +173,7 @@ WITT_DROPS = ['Variant', 'Notes', 'Country code', 'Type', 'Parent code']
 
 
 def witt_global():
-    ds = 'witt_population'
+    ds = 'witt_population-2019'
     scenarios = files.get_coll_vals(ds, 'all_pop')
     age_drops = []
     for i in range(1, 22):
