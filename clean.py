@@ -88,9 +88,9 @@ def un2019_global():
         orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
         out_path = files.get_coll_file_path(ds, 'global_pop', scenario)
         # get global
-        orig = orig.drop(UN2019_DROPS, 1)
+        orig.drop(columns = UN2019_DROPS, inplace=True)
         world = orig[orig.Region == 'WORLD']
-        new = world.drop('Region', 1).T
+        new = world.drop(columns = 'Region').T
         new = new.reset_index()
         out = p.DataFrame()
         out['population'] = new[0].map(lambda x: int(x.replace(' ','')) * 1000)
@@ -108,12 +108,12 @@ def un2019_countries():
         orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
         out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
         # get global
-        orig = orig.drop(UN2019_DROPS, axis=1)
+        orig.drop(columns=UN2019_DROPS, inplace=True)
         out = p.DataFrame()
         first_country = True
         for country in countries:
             countrydf = orig[orig.Region == country].copy()
-            new = countrydf.drop('Region', axis=1).T
+            new = countrydf.drop(columns='Region').T
             country_code = new.columns[0]
             new = new.reset_index()
             out[country] = new[country_code].map(lambda x: int(x.replace(' ','')) * 1000)

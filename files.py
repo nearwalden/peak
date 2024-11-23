@@ -126,17 +126,40 @@ UN2024 = {'path': 'un-wpp2024/',
         }
 }
 
+def get_val2(coll):
+    
+    
 
+# clean datasets
+CLEAN = {'path': 'cleandata/',
+    'basepath': DATA_BASEPATH,
+    'data': 
+        {'collections': {
+            'global': { 
+                'basepath': '{}-global-{}',
+                'val1': ['BMGF', 'WITT2019', 'WITT2023', 'UN2019', 'UN2022', 'UN2024'],
+                'val2': {'BMGF': BMGF['data']['collections']['global_pop']['vals'],
+            }
+            }, 
+            'country': {
+                'basepath': '',
+                'vals': ['BMGF', 'WITT2019', 'WITT2023', 'UN2019', 'UN2022', 'UN2024']
+        }}}
+    }
 
 
 # place for results
 RES = {'path': 'results/'}
 
 
+
 DATASETS = {'bmgf_population': BMGF, 
-            'witt_population': WITT, 
+            'witt_population_2019': WITT2019, 
+            'witt_population_2023': WITT2023, 
             'un_population_2019': UN2019,
             'un_population_2022': UN2022,            
+            'un_population_2024': UN2024,   
+            'clean_data': CLEAN,         
             'results': RES}
 
 
@@ -147,11 +170,18 @@ def get_file_path(dataset, name):
     return datasetpath + filepath
 
 
-def get_coll_file_path(dataset, coll, vals):
+def get_coll_file_path(dataset, coll, val):
     ds = DATASETS[dataset]
     datasetpath = ds['basepath'] + ds['path']
     base_filepath = ds['data']['collections'][coll]['basepath']
-    filepath = base_filepath.format(vals)
+    filepath = base_filepath.format(val)
+    return datasetpath + filepath
+    
+def get_coll_file_path2(dataset, coll, val1, val2):
+    ds = DATASETS[dataset]
+    datasetpath = ds['basepath'] + ds['path']
+    base_filepath = ds['data']['collections'][coll]['basepath']
+    filepath = base_filepath.format(val1, val2)
     return datasetpath + filepath
 
 

@@ -19,9 +19,9 @@ def bmgf_location_names():
     return df['location_name'].unique()
 
 # locations for WITT
-def witt20219_locations():
-    df = p.read_csv(files.get_file_path('witt_population-2019', 'recode'))
-    datadf = p.read_csv(files.get_coll_file_path('witt_population', "all_pop", 1))
+def witt2019_locations():
+    df = p.read_csv(files.get_file_path('witt_population_2019', 'recode'))
+    datadf = p.read_csv(files.get_coll_file_path('witt_population_2019', "all_pop", 1))
     dfl = df[df['dim'] == 'isono'].copy()
     out = []
     for i, row in dfl.iterrows():
