@@ -1,6 +1,7 @@
 # Make clean files
 
 import files
+import locations
 import pandas as p
 import numpy as np
 
@@ -74,8 +75,97 @@ def bmgf_countries():
 
 UN_SCENARIOS = ['high', 'medium', 'low']
 
+UN2019_DROPS = ['Variant', 'Notes', 'Country code', 'Type', 'Parent code']
+
+UN2022_DROPS = ['Variant', 'Notes', 'Location code', 'Type']
 
 
+# clean up the 2019 version
+def un2019_global():
+    ds = 'un_population_2019'
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'global_pop', scenario)
+        # get global
+        orig.drop(columns = UN2019_DROPS, inplace=True)
+        world = orig[orig.Region == 'WORLD']
+        new = world.drop(columns = 'Region').T
+        new = new.reset_index()
+        out = p.DataFrame()
+        out['population'] = new[0].map(lambda x: int(x.replace(' ','')) * 1000)
+        out['year'] = new['index']
+        out['scenario'] = scenario
+        out.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " + scenario)
+    return True
+
+def un2019_countries():
+    ds = 'un_population_2019'
+    countries = locations.countries()    
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
+        # get global
+        orig.drop(columns=UN2019_DROPS, inplace=True)
+        out = p.DataFrame()
+        first_country = True
+        for country in countries:
+            countrydf = orig[orig.Region == country].copy()
+            new = countrydf.drop(columns='Region').T
+            country_code = new.columns[0]
+            new = new.reset_index()
+            out[country] = new[country_code].map(lambda x: int(x.replace(' ','')) * 1000)
+            if first_country:
+                out['year'] = new['index']
+            first_country = False
+            out = out.copy()
+        out['scenario'] = scenario
+        out.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " + scenario)
+    return True
+
+# clean up the 2022 version
+
+
+def un2022_global():
+    ds = 'un_population_2022'
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'global_pop', scenario)
+        # get global
+        world = orig[orig.Region == 'WORLD']
+        out = p.DataFrame()
+        out['population'] = world['population'].map(lambda x: int(x.replace(' ','')) * 1000)
+        out['year'] = world['year']
+        out['scenario'] = scenario
+        out.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " + scenario)
+    return True
+
+
+def un2022_countries():
+    ds = 'un_population_2022'
+    countries = locations.countries()    
+    scenarios = files.get_coll_vals(ds, 'all_pop')
+    for scenario in scenarios:
+        orig = p.read_csv(files.get_coll_file_path(ds, 'all_pop', scenario))
+        out_path = files.get_coll_file_path(ds, 'country_pop', scenario)
+        out = p.DataFrame()
+        first_country = True
+        for country in countries:
+            countrydf = orig[orig.Region == country].copy()
+            out[country] = countrydf['population'].map(lambda x: int(x.replace(' ','')) * 1000).values
+            if first_country:
+                out['year'] = orig['year']
+            first_country = False
+            out = out.copy()
+        out['scenario'] = scenario
+        out.to_csv(out_path)
+        print("Wrote " + str(len(out)) + " records for " + scenario)
+    return True
 
 # Witt data cleaning
 
