@@ -6,6 +6,12 @@ import modelmgr
 DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
 # DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
 
+COUNTRY_PATH = 'data/country/'
+GLOBAL_PATH = 'data/global/'
+METADATA_PATH = 'data/metadata/'
+
+COUNTRY_TEMPLATE = "{}_global_{}.csv"
+
 
 # Gates foundation population data
 BMGF = {'path': 'gatesfoundation/',
@@ -72,43 +78,32 @@ WITT2023 = {'path': 'wittgenstein-center-2023/',
         }
 
 # place for results
-DIRECTORIES = {'source': 'source',
-                'cleandata': 'clean',
-                'results': 'results'
+COMPUTED_DIRS = {'cleandata': 'clean/',
+                'results': 'results/'
 }
 
-
-
-DATASETS = {'bmgf_population': BMGF, 
-            'witt_population_2019': WITT2019, 
-            'witt_population_2023': WITT2023, 
-            # 'un_population_2019': UN2019,
-            # 'un_population_2022': UN2022,            
-            # 'un_population_2024': UN2024,   
-            
-
-def get_file_path(type, dataset, name):
-    ds = DATASETS[dataset]
+def get_file_path(dataset, name):
+    ds = modelmgr.model_files(name)
     datasetpath = ds['basepath'] + ds['path']
     filepath = ds['data']['files'][name]
-    return datasetpath + filepath
+    return(datasetpath + filepath)
 
-
-def get_coll_file_path(type, dataset, coll, val):
-    ds = DATASETS[dataset]
-    datasetpath = ds['basepath'] + ds['path']
+def get_coll_file_path(dataset, coll, val):
+    ds = modelmgr.model_files(name)
+    datasetpath =  DATA_BASEPATH + ds['path']
     base_filepath = ds['data']['collections'][coll]['basepath']
     filepath = base_filepath.format(val)
-    return datasetpath + filepath
+    return(datasetpath + filepath)
     
-def get_coll_file_path2(dataset, coll, val1, val2):
-    ds = DATASETS[dataset]
-    datasetpath = ds['basepath'] + ds['path']
-    base_filepath = ds['data']['collections'][coll]['basepath']
-    filepath = base_filepath.format(val1, val2)
-    return datasetpath + filepath
-
+# return the full path if someone already has the filepath and scenario
+def get_scenario_file_path(filepath, scenario):
+    return filepath.format(scenario)
+    
+# return the global path for a model+scenario combo
+def get_global_path(model, scenario):
+    filename = GLOBAL_TEMPLATE.format(model, scenario)
+    return(DATA_BASEPATH + GLOBAL_PATH + filename)
 
 def get_coll_vals(dataset, coll):
-    ds = DATASETS[dataset]
-    return ds['data']['collections'][coll]['vals']
+    ds = modelmgr.model_files(name)
+    return(ds['data']['collections'][coll]['vals'])

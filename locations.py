@@ -32,29 +32,6 @@ def witt2019_locations():
     return outdf
 
 
-def un2019_locations():
-    df = p.read_csv(files.get_coll_file_path('un_population_2019', 'all_pop', 'high'))
-    dfg = df.groupby('Region')
-    outdf = p.DataFrame()
-    outdf = dfg.first()
-    outdf = outdf.reset_index()
-    return outdf   #  outdf[outdf['Type'] == 'Country/Area'].copy()
-
-
-def un2019_country_names():
-    df = un2019_locations()
-    return df[df.Type == 'Country/Area']['Region'].to_list()
-
-
-def un2019_region_names():
-    df = un2019_locations()
-    return df[df.Type == 'Region']['Region'].to_list()
-
-
-def un2019_subregion_names():
-    df = un2019_locations()
-    return df[df.Type == 'Subregion']['Region'].to_list()
-
 
 def un2022_locations():
     df = p.read_csv(files.get_coll_file_path('un_population_2022', 'all_pop', 'high'))
