@@ -10,7 +10,10 @@ COUNTRY_PATH = 'data/country/'
 GLOBAL_PATH = 'data/global/'
 METADATA_PATH = 'data/metadata/'
 
-COUNTRY_TEMPLATE = "{}_global_{}.csv"
+GLOBAL_TEMPLATE = "{}_global_{}.csv"
+COUNTRY_TEMPLATE = "{}_country_{}.csv"
+
+LOADED_MODELS_FILENAME = "loaded_models.json"
 
 
 # Gates foundation population data
@@ -97,12 +100,21 @@ def get_coll_file_path(dataset, coll, val):
     
 # return the full path if someone already has the filepath and scenario
 def get_scenario_file_path(filepath, scenario):
-    return filepath.format(scenario)
+    return DATA_BASEPATH + filepath.format(scenario)
     
 # return the global path for a model+scenario combo
 def get_global_path(model, scenario):
     filename = GLOBAL_TEMPLATE.format(model, scenario)
     return(DATA_BASEPATH + GLOBAL_PATH + filename)
+
+# return the country path for a model+scenario combo
+def get_country_path(model, scenario):
+    filename = COUNTRY_TEMPLATE.format(model, scenario)
+    return(DATA_BASEPATH + COUNTRY_PATH + filename)
+    
+# return the metadata path
+def get_loaded_moduels_path():
+    return(DATA_BASEPATH + METADATA_PATH + LOADED_MODELS_FILENAME))
 
 def get_coll_vals(dataset, coll):
     ds = modelmgr.model_files(name)

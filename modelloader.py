@@ -14,6 +14,11 @@ def load_one(name):
 	importlib.import_module(module)
 	return(name)
 	
+def reload_model(name):
+	module = MODEL_MODULE + '.' + name
+	importlib.reload(module)
+	return(name)
+	
 
 	
 	

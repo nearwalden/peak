@@ -1,5 +1,7 @@
 # manage models
 import modelloader
+import files
+import json
 import pandas as p
 
 # Where the 
@@ -14,16 +16,38 @@ def register_model(name, desc):
 # returns the list of all model names	
 def model_names():
 	return(list(MODELS.keys()))
+	
+# writes modules to file
+def write_loaded_models():
+	filename = files.get_loaded_models_filename()
+	with open(filename, "w") as fp:
+		json.dump(MODELS, fp) 
+		
+# read modules from file
+def read_loaded_models():
+	filename = files.get_loaded_models_filename()
+	with open(filename, "r") as fp:
+		return json.loads(fp) 
 
 # calls the model loader for all models in the directory
 def load_models():
 	modelloader.load_all()
+	write_loaded_modules()
 	return(model_names())
 
 # loads a specific model
 def load_model(name):
 	modelloader.load_one(name)
+	write_loaded_modules()
 	return(name)
+	
+# reload modules
+def reload_model():
+	models = read_loaded_models()
+	for name in models.keys:
+		modelloader.reload_model(name)
+	return(name)
+		
 
 # returns the list of all files for a specific model
 def model_files(name):
@@ -33,9 +57,14 @@ def model_files(name):
 def create_clean_data(model):
 	scenarios = MODELS[model]['scenarios']
 	for scenario in scenarios:
+		# global
 		data = MODELS[model]['create-global'](scenario)
 		filename = files.get_global_path(model, scenario)
-		data.write_csv(filename)
+		data.to_csv(filename)
+		# country
+		data = MODELS[model]['create-country'](scenario)
+		filename = files.get_country_path(model, scenario)
+		data.to_csv(filename)
 	return(True)
 	
 	
