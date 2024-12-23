@@ -1,8 +1,8 @@
 # manage models
-import modelloader
-import files
 import json
 import pandas as p
+import modelloader
+import files
 
 # Where the 
 
@@ -19,34 +19,35 @@ def model_names():
 	
 # writes modules to file
 def write_loaded_models():
-	filename = files.get_loaded_models_filename()
-	with open(filename, "w") as fp:
-		json.dump(MODELS, fp) 
+	filename = files.get_loaded_models_path()
+	data = {'models': model_names()}
+	with open(filename, "w", encoding='utf8') as fp:
+		json.dump(data, fp, ensure_ascii = False) 
 		
 # read modules from file
 def read_loaded_models():
-	filename = files.get_loaded_models_filename()
-	with open(filename, "r") as fp:
-		return json.loads(fp) 
+	filename = files.get_loaded_models_path()
+	with open(filename, "r", encoding ='utf8') as fp:
+		return json.load(fp)['models']
 
 # calls the model loader for all models in the directory
 def load_models():
 	modelloader.load_all()
-	write_loaded_modules()
+	write_loaded_models()
 	return(model_names())
 
 # loads a specific model
 def load_model(name):
 	modelloader.load_one(name)
-	write_loaded_modules()
+	write_loaded_models()
 	return(name)
 	
 # reload modules
-def reload_model():
+def reload_models():
 	models = read_loaded_models()
-	for name in models.keys:
+	for name in models:
 		modelloader.reload_model(name)
-	return(name)
+	return(models)
 		
 
 # returns the list of all files for a specific model

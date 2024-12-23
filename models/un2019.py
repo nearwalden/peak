@@ -1,8 +1,8 @@
 # UN 2019 Projections
 
+import pandas as p
 import modelmgr
 import files
-import pandas as p
 # import numpy as np
 
 # Dataset definition
@@ -28,13 +28,13 @@ def un2019_global(scenario):
 	return out
 
 # create a country file for one of the scenarios
-def un2019_country(scenario, countries):
+def un2019_country(scenario):
 	orig = p.read_csv(files.get_scenario_file_path(UN2019_PATH, scenario))
 	# get global
 	orig.drop(columns=UN2019_DROPS, inplace=True)
 	out = p.DataFrame()
 	first_country = True
-	for country in countries:
+	for country in un2019_country_names():
 		countrydf = orig[orig.Region == country].copy()
 		new = countrydf.drop(columns='Region').T
 		country_code = new.columns[0]
@@ -48,7 +48,7 @@ def un2019_country(scenario, countries):
 	return out
 	
 def un2019_locations():
-		df = p.read_csv(files.get_scenario_file_path(UN2019_FILEPATH, 'high'))
+		df = p.read_csv(files.get_scenario_file_path(UN2019_PATH, 'high'))
 		dfg = df.groupby('Region')
 		outdf = p.DataFrame()
 		outdf = dfg.first()

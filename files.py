@@ -3,8 +3,8 @@
 import modelmgr
 
 # DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
-DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
-# DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
+# DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
+DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
 
 COUNTRY_PATH = 'data/country/'
 GLOBAL_PATH = 'data/global/'
@@ -113,8 +113,8 @@ def get_country_path(model, scenario):
     return(DATA_BASEPATH + COUNTRY_PATH + filename)
     
 # return the metadata path
-def get_loaded_moduels_path():
-    return(DATA_BASEPATH + METADATA_PATH + LOADED_MODELS_FILENAME))
+def get_loaded_models_path():
+    return(DATA_BASEPATH + METADATA_PATH + LOADED_MODELS_FILENAME)
 
 def get_coll_vals(dataset, coll):
     ds = modelmgr.model_files(name)
