@@ -3,8 +3,8 @@
 import modelmgr
 
 # DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
-# DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
-DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
+DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
+# DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
 
 COUNTRY_PATH = 'data/country/'
 GLOBAL_PATH = 'data/global/'
