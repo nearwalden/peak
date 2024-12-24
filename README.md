@@ -15,4 +15,10 @@ model
 - country
 - metadata
 
-## Scheme
+## Schema
+
+### Global
+
+- year (int)
+- population (int)
+- scenario (string)

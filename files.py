@@ -16,25 +16,6 @@ COUNTRY_TEMPLATE = "{}_country_{}.csv"
 LOADED_MODELS_FILENAME = "loaded_models.json"
 
 
-# Gates foundation population data
-BMGF = {'path': 'gatesfoundation/',
-        'data': 
-            {'files': 
-                {'pop_data': 'IHME_POP_2017_2100_POP_BOTH_SEX_ALL_AGE_Y2020M05D01.csv'
-                },
-            'collections':
-                {'global_pop': {
-                    'basepath': 'IHME_POP_2017_2100_GLOBAL_{}.csv',
-                    'vals': ['SLOWER', 'REFERENCE', 'FASTER', 'SDG']
-                    },
-                'country_pop': {
-                    'basepath': 'IHME_POP_2017_2100_COUNTRY_{}.csv',
-                    'vals': ['SLOWER', 'REFERENCE', 'FASTER', 'SDG']
-                    }
-                }
-            }
-}
-
 
 # Wittgenstein Center population dataw
 WITT2019 = {'path': 'wittgenstein-center-2019/',
@@ -80,10 +61,6 @@ WITT2023 = {'path': 'wittgenstein-center-2023/',
             }
         }
 
-# place for results
-COMPUTED_DIRS = {'cleandata': 'clean/',
-                'results': 'results/'
-}
 
 def get_file_path(dataset, name):
     ds = modelmgr.model_files(name)

@@ -13,10 +13,7 @@ WORLD_NAMES = {
     'witt2019': 'WORLD'
     }
 
-# locations for BMGF
-def bmgf_location_names():
-    df = p.read_csv(files.get_file_path('bmgf_population', 'pop_data'))
-    return df['location_name'].unique()
+
 
 # locations for WITT
 def witt2019_locations():

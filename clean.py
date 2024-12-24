@@ -70,13 +70,6 @@ def bmgf_countries():
     return True
 
 
-# UN data cleaning
-
-UN_SCENARIOS = ['high', 'medium', 'low']
-
-
-
-
 # Witt data cleaning
 
 WITT_DROPS = ['Variant', 'Notes', 'Country code', 'Type', 'Parent code']
