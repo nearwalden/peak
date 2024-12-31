@@ -15,18 +15,6 @@ WORLD_NAMES = {
 
 
 
-# locations for WITT
-def witt2019_locations():
-    df = p.read_csv(files.get_file_path('witt_population_2019', 'recode'))
-    datadf = p.read_csv(files.get_coll_file_path('witt_population_2019', "all_pop", 1))
-    dfl = df[df['dim'] == 'isono'].copy()
-    out = []
-    for i, row in dfl.iterrows():
-        count = len(datadf[datadf['isono'] == row['code']])
-        if count > 0:
-            out.append({'name': row['name'], 'code': row['code']})
-    outdf = p.DataFrame(out)
-    return outdf
 
 
 

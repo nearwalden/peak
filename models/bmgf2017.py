@@ -49,34 +49,54 @@ def bmgf2017_global(scenario):
 	norms['population'] = norms['population'].astype(int)
 	return norms
 	
-
+	
 def bmgf2017_country(scenario):
 	orig = p.read_csv(files.DATA_BASEPATH + BMGF2017_PATH)
-	# start with 2020
-	orig = orig[orig.year_id > 2019]
+	origg = orig[orig.year_id > 2019]
 	# get right columns
-	norm = mapdf(orig, BMGF_MAP)
-	# pick out scenario
+	norm = mapdf(origg, BMGF_MAP)
 	norms = norm[norm['scenario_id'] == BMGF_SCENARIOS[scenario]].copy()
-	norms = norms.set_index('year')
-	outdf = p.DataFrame()
-	outdf['year'] = norms['year']
-	for country in bmgf2017_location_names():
-		normc = norms[norms['location_name'] == country]
-		outdf[country] = normc['population'].astype(int)
-	return(outdf.resest_index())
+	out = p.DataFrame()
+	first_country = True
+	for country in bmgf2017_country_names():
+		countrydf = norms[norms['location_name'] == country].copy()
+		out[country] = countrydf['population'].astype(int).values
+		if first_country:
+			out['year'] = countrydf['year'].values
+			out['scenario'] = scenario
+		first_country = False
+		out = out.copy()
+	return(out)
+
+BMGF2017_REGIONS = ['Global', 'Central Europe, Eastern Europe, and Central Asia',
+   'Central Asia', 'Central Europe', 'Eastern Europe', 'High-income',
+   'Australasia', 'High-income Asia Pacific',
+   'High-income North America', 'Southern Latin America',
+   'Western Europe', 'Latin America and Caribbean',
+   'Andean Latin America', 'Caribbean', 'Central Latin America',
+   'Tropical Latin America', 'North Africa and Middle East',
+   'South Asia', 'Southeast Asia, East Asia, and Oceania',
+   'East Asia', 'Oceania', 'Southeast Asia', 'Sub-Saharan Africa',
+   'Central Sub-Saharan Africa', 'Eastern Sub-Saharan Africa',
+   'Southern Sub-Saharan Africa', 'Western Sub-Saharan Africa']
 	
 # locations for BMGF
 def bmgf2017_location_names():
 	df = p.read_csv(files.DATA_BASEPATH + BMGF2017_PATH)
-	locations = df['location_name'].unique()
-	locations.remove('Global')
+	locations = df['location_name'].unique().tolist()
+	return(locations)
+	
+# countries
+def bmgf2017_country_names():
+	locations = bmgf2017_location_names()
+	for name in BMGF2017_REGIONS:
+		locations.remove(name)
 	return(locations)
 
 BMGF2017_MODEL = {'name': 'bmgf2017',
 				'create-global': bmgf2017_global,
 				'create-country': bmgf2017_country,
-				'country-names': bmgf2017_location_names,
+				'country-names': bmgf2017_country_names,
 				'world-name': 'Global',
 				'scenarios': BMGF2017_SCENARIOS}
 	

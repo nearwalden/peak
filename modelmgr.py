@@ -48,7 +48,21 @@ def reload_models():
 	for name in models:
 		modelloader.reload_model(name)
 	return(models)
+	
+	
+# un2024 country names
+def read_un2024_country_names():
+	filename = files.get_locations_path()
+	with open(filename, "r", encoding = 'utf8') as fp:
+		return(json.load(fp)['un2024_country_names'])
 		
+# write un2024 country names
+def write_un2024_country_names():
+	filename = files.get_locations_path()
+	locs = {'un2024_country_names': MODELS['un2024']['country_names']()}
+	with open(filename, "w", encoding='utf8') as fp:
+		json.dump(locs, fp, ensure_ascii = False)
+	return(True)
 
 # returns the list of all files for a specific model
 def model_files(name):

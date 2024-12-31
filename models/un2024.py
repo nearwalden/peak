@@ -4,7 +4,8 @@ import pandas as p
 import modelmgr
 import files
 
-# UN dataset 2022
+
+# UN dataset 2024
 UN2024_PATH = 'un-wpp2024/WPP2024_TotalPopulationBySex.csv'
 UN2024_SCENARIOS = ['Medium', 'High', 'Low', 'Median PI', 'Upper 80 PI',
 		'Lower 80 PI', 'Upper 95 PI', 'Lower 95 PI']
@@ -36,6 +37,8 @@ def un2024_global(scenario):
 # country file
 def un2024_country(scenario):
 	orig = p.read_csv(files.DATA_BASEPATH + UN2024_PATH, low_memory=False)
+	# get the scenario
+	orig = orig[orig.Variant == scenario]
 	out = p.DataFrame()
 	first_country = True
 	for country in un2024_country_names():

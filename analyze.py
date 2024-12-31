@@ -1,6 +1,6 @@
 # analyze datasets
 
-import files
+import modelmgr
 import pandas as p
 
 
