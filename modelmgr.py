@@ -82,6 +82,26 @@ def create_clean_data(model):
 		data.to_csv(filename)
 	return(True)
 	
+def create_global_all():
+	# get all of the model names
+	models = model_names()
+	# here's where everything goes
+	out = p.DataFrame()
+	for model in models:
+		# get list of scenarios
+		scenarios = MODELS[model]['scenarios']
+		for scenario in scenarios:
+			column_name = model + '_' + scenario
+			# read the data
+			df = p.read_csv(files.get_global_path(model, scenario))
+			df.set_index('year', inplace=True)
+			out[column_name] = df['population']
+	out.to_csv(files.get_global_all_path())
+	return models
+	
+
+	
+	
 	
 	
 

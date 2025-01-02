@@ -13,8 +13,11 @@ METADATA_PATH = 'data/metadata/'
 GLOBAL_TEMPLATE = "{}_global_{}.csv"
 COUNTRY_TEMPLATE = "{}_country_{}.csv"
 
+# specific filenames
+
 LOADED_MODELS_FILENAME = "loaded_models.json"
 LOCATIONS_FILENAME = "location.json"
+GLOBAL_ALL_FILENAME = "all_global.csv"
 
 
 def get_file_path(dataset, name):
@@ -38,6 +41,11 @@ def get_scenario_file_path(filepath, scenario):
 def get_global_path(model, scenario):
     filename = GLOBAL_TEMPLATE.format(model, scenario)
     return(DATA_BASEPATH + GLOBAL_PATH + filename)
+    
+# return the global path that holds all data
+def get_global_all_path():
+    return(DATA_BASEPATH + GLOBAL_PATH + GLOBAL_ALL_FILENAME)
+
 
 # return the country path for a model+scenario combo
 def get_country_path(model, scenario):

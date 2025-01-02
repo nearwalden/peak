@@ -6,7 +6,8 @@ import importlib
 MODEL_MODULE = "models"
 	
 def load_all():
-	import models
+	# importlib.import_module(MODEL_MODULE)
+	__import__(MODEL_MODULE, fromlist=['*'])
 	return True
 	
 def load_one(name):

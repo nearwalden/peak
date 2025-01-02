@@ -17,7 +17,8 @@ def witt2024_global(scenario):
 	orig = p.read_csv(files.DATA_BASEPATH + WITT2024_PATH)
 	# get global
 	world = orig[orig.Area == "World"]
-	fit = np.polyfit(world.Year, world.Population, 2)
+	worlds = world[world.Scenario == scenario]
+	fit = np.polyfit(worlds.Year, worlds.Population, 2)
 	outdf = p.DataFrame()
 	outdf['year'] = np.arange(2020, 2101, 1)
 	outdf['scenario'] = scenario
@@ -30,12 +31,13 @@ def witt2024_global(scenario):
 
 def witt2024_country(scenario):
 	orig = p.read_csv(files.DATA_BASEPATH + WITT2024_PATH)
+	origs = orig[orig.Scenario == scenario]
 	# get countries except world
 	outdf = p.DataFrame()
 	outdf['year'] = np.arange(2020, 2101, 1)
 	outdf['scenario'] = scenario	
 	for country in witt2024_country_names():
-		country_pop = orig[orig.Area == country]
+		country_pop = origs[origs.Area == country]
 		fit = np.polyfit(country_pop.Year, country_pop.Population, 2)
 		out = []
 		for year in range(2020, 2101):
