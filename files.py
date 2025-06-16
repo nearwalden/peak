@@ -9,6 +9,7 @@ DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
 COUNTRY_PATH = 'data/country/'
 GLOBAL_PATH = 'data/global/'
 METADATA_PATH = 'data/metadata/'
+RESULTS_PATH = 'data/results/'
 
 GLOBAL_TEMPLATE = "{}_global_{}.csv"
 COUNTRY_TEMPLATE = "{}_country_{}.csv"
