@@ -45,7 +45,7 @@ def un2024_country(scenario):
 		countrydf = orig[orig.Location == country].copy()
 		out[country] = countrydf['PopTotal'].map(lambda x: int(x * 1000)).values
 		if first_country:
-			out['year'] = orig['Time']
+			out['year'] = orig['Time'].astype(int)
 		first_country = False
 		out = out.copy()
 	out['scenario'] = scenario

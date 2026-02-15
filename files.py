@@ -3,10 +3,11 @@
 import modelmgr
 
 # DATA_BASEPATH = "/mnt/c/Users/nearw/data/population/"
-DATA_BASEPATH = "/Users/dd/pCloud Drive/data/population/"
+DATA_BASEPATH = "/Users/dd/Proton Drive/data/population/"
 # DATA_BASEPATH = "/home/dd/pCloudDrive/data/population/"
 
 COUNTRY_PATH = 'data/country/'
+COUNTRY_CLEAN_PATH = 'data/country_clean/'
 GLOBAL_PATH = 'data/global/'
 METADATA_PATH = 'data/metadata/'
 RESULTS_PATH = 'data/results/'
@@ -19,6 +20,7 @@ COUNTRY_TEMPLATE = "{}_country_{}.csv"
 LOADED_MODELS_FILENAME = "loaded_models.json"
 LOCATIONS_FILENAME = "location.json"
 GLOBAL_ALL_FILENAME = "all_global.csv"
+GLOBAL_ALL_CLEAN_FILENAME = "all_global_clean.csv"
 
 
 def get_file_path(dataset, name):
@@ -47,11 +49,19 @@ def get_global_path(model, scenario):
 def get_global_all_path():
     return(DATA_BASEPATH + GLOBAL_PATH + GLOBAL_ALL_FILENAME)
 
-
+# return the global path that holds all data
+def get_global_all_clean_path():
+    return(DATA_BASEPATH + GLOBAL_PATH + GLOBAL_ALL_CLEAN_FILENAME)
+            
 # return the country path for a model+scenario combo
 def get_country_path(model, scenario):
     filename = COUNTRY_TEMPLATE.format(model, scenario)
     return(DATA_BASEPATH + COUNTRY_PATH + filename)
+    
+# return the country path for a model+scenario combo
+def get_country_clean_path(model, scenario):
+    filename = COUNTRY_TEMPLATE.format(model, scenario)
+    return(DATA_BASEPATH + COUNTRY_CLEAN_PATH + filename)
     
 # return the metadata path
 def get_loaded_models_path():

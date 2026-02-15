@@ -41,7 +41,7 @@ def un2019_country(scenario):
 		new = new.reset_index()
 		out[country] = new[country_code].map(lambda x: int(x.replace(' ','')) * 1000)
 		if first_country:
-			out['year'] = new['index']
+			out['year'] = new['index'].astype(int)
 		first_country = False
 		out = out.copy()
 	out['scenario'] = scenario

@@ -17,14 +17,14 @@ def register_model(name, desc):
 def model_names():
 	return(list(MODELS.keys()))
 	
-# writes modules to file
+# writes models to file
 def write_loaded_models():
 	filename = files.get_loaded_models_path()
 	data = {'models': model_names()}
 	with open(filename, "w", encoding='utf8') as fp:
 		json.dump(data, fp, ensure_ascii = False) 
 		
-# read modules from file
+# read models from file
 def read_loaded_models():
 	filename = files.get_loaded_models_path()
 	with open(filename, "r", encoding ='utf8') as fp:
@@ -49,29 +49,18 @@ def reload_models():
 		modelloader.reload_model(name)
 	return(models)
 	
-	
-# un2024 country names
-def read_un2024_country_names():
-	filename = files.get_locations_path()
-	with open(filename, "r", encoding = 'utf8') as fp:
-		return(json.load(fp)['un2024_country_names'])
-		
-# write un2024 country names
-def write_un2024_country_names():
-	filename = files.get_locations_path()
-	locs = {'un2024_country_names': MODELS['un2024']['country_names']()}
-	with open(filename, "w", encoding='utf8') as fp:
-		json.dump(locs, fp, ensure_ascii = False)
-	return(True)
-
 # returns the list of all files for a specific model
 def model_files(name):
 	return(MODELS[name][files])
+	
+# first year to include
+FIRST_YEAR = 2025
 
 # creates clean data for global and country
 def create_clean_data(model):
 	scenarios = MODELS[model]['scenarios']
 	for scenario in scenarios:
+		print("> " + scenario)
 		# global
 		data = MODELS[model]['create-global'](scenario)
 		filename = files.get_global_path(model, scenario)
@@ -80,6 +69,18 @@ def create_clean_data(model):
 		data = MODELS[model]['create-country'](scenario)
 		filename = files.get_country_path(model, scenario)
 		data.to_csv(filename)
+		# country clean
+		# print(data["year"])
+		data_clean = data.loc[data["year"] >= FIRST_YEAR]
+		filename = files.get_country_clean_path(model, scenario)
+		data_clean.to_csv(filename)
+	return(True)
+	
+# creates clean data for all models
+def create_clean_data_all():
+	for model in MODELS:
+		print("Working on model " + model)
+		create_clean_data(model)
 	return(True)
 	
 def create_global_all():
@@ -97,6 +98,8 @@ def create_global_all():
 			df.set_index('year', inplace=True)
 			out[column_name] = df['population']
 	out.to_csv(files.get_global_all_path())
+	out = out.loc[out.index >= FIRST_YEAR]
+	out.to_csv(files.get_global_all_clean_path())
 	return models
 	
 
